@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
 
         JFrame main_frame = new JFrame();
-        main_frame.setTitle("Test");
+        main_frame.setTitle("Life");
         main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel top_panel = new JPanel();

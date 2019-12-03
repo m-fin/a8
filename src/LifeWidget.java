@@ -13,7 +13,6 @@ public class LifeWidget extends JPanel implements ActionListener, CellListener {
 
     JButton reset_button;
 
-
     public LifeWidget() {
 
         _grid_width = 20;
@@ -36,9 +35,9 @@ public class LifeWidget extends JPanel implements ActionListener, CellListener {
         sub_panel.add(reset_button, BorderLayout.LINE_END);
 //		reset_message_panel.add(_message, BorderLayout.CENTER);
 
-		JButton random_button = new JButton("Random");
-		random_button.addActionListener(this);
-		sub_panel.add(random_button, BorderLayout.CENTER);
+        JButton random_button = new JButton("Random");
+        random_button.addActionListener(this);
+        sub_panel.add(random_button, BorderLayout.CENTER);
 
         JButton next_button = new JButton("Next");
         next_button.addActionListener(this);
@@ -57,9 +56,9 @@ public class LifeWidget extends JPanel implements ActionListener, CellListener {
     }
 
     private void resetGrid() {
-		for (Cell s : _grid) {
-			s.setCellDead();
-		}
+        for (Cell s : _grid) {
+            s.setCellDead();
+        }
 
 
         /* Display game start message. */
@@ -67,13 +66,13 @@ public class LifeWidget extends JPanel implements ActionListener, CellListener {
     }
 
     private void randomizeGrid() {
-		for (Cell s : _grid) {
-			double randNum = Math.random();
-			if (randNum > 0.5) {
-				s.setCellAlive();
-			}
-		}
-	}
+        for (Cell s : _grid) {
+            double randNum = Math.random();
+            if (randNum > 0.5) {
+                s.setCellAlive();
+            }
+        }
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -83,9 +82,9 @@ public class LifeWidget extends JPanel implements ActionListener, CellListener {
         }
 
         if (e.getActionCommand().equals("Random")) {
-			resetGrid();
-			randomizeGrid();
-		}
+            resetGrid();
+            randomizeGrid();
+        }
 
         if (e.getActionCommand().equals("Next")) {
             int testColumn = 2;
@@ -188,67 +187,6 @@ public class LifeWidget extends JPanel implements ActionListener, CellListener {
         } else {
             s.setCellDead();
         }
-
-//		/* If game already won, do nothing. */
-//		if (_game_won) {
-//			return;
-//		}
-
-//		if (_next_to_play == Player.BLUE) {
-//			player_color = Color.BLUE;
-//			player_name = "Blue";
-//			next_player_name = "Green";
-//			_next_to_play = Player.GREEN;
-//		} else {
-//			player_color = Color.GREEN;
-//			player_name = "Green";
-//			next_player_name = "Blue";
-//			_next_to_play = Player.BLUE;
-//		}
-
-
-        /* Set color of cell clicked and toggle. */
-//		s.setCellColor(player_color);
-//		s.toggleCell();
-
-        /* Check if cell clicked is secret cell.
-         * If so, mark game as won and update background
-         * of cell to show that it was the secret cell.
-         */
-
-//		_game_won = (s == _secret_cell);
-//		if (_game_won) {
-//			s.setBackground(Color.RED);
-//		}
-
-        /* Update the message depending on what happened.
-         * If cell is empty, then we must have just cleared the cell. Update message accordingly.
-         * If cell is not empty and the game is won, we must have
-         * just won. Calculate score and display as part of game won message.
-         * If cell is not empty and the game is not won, update message to
-         * report cell coordinates and indicate whose turn is next.
-         */
-
-//		if (s.isDead()) {
-//			_message.setText(player_name + " cleared the cell at " + s.getCoordString() + ". " + next_player_name + " to play.");
-//		} else {
-//			if (_game_won)  {
-//				int score = _grid.getCellWidth() * _grid.getCellHeight();
-//				for (Cell board_cell : _grid) {
-//					if (!board_cell.isDead()) {
-//						if (board_cell.getCellColor() == player_color) {
-//							score -= 1;
-//						} else {
-//							score += 1;
-//						}
-//					}
-//				}
-//				_message.setText(player_name + " found the secret cell at " + s.getCoordString() + ". " +
-//				                 "Score: " + score + ". Game over.");
-//			} else {
-//				_message.setText("Cell at " + s.getCoordString() + " is not the cell. Better luck next time. " + next_player_name + " to play.");
-//			}
-//		}
     }
 
     @Override
