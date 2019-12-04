@@ -5,13 +5,15 @@ import java.awt.event.ActionListener;
 
 public class LifeWidget extends JPanel implements ActionListener, CellListener {
 
-    private JCellGrid _grid;        /* CellBoard playing area. */
-    private JLabel _message;        /* Label for messages. */
+    private JCellGrid _grid;
+    private JLabel _message;
 
     private int _grid_width;
     private int _grid_height;
 
     JButton reset_button;
+
+    private JTextField size_field;
 
     public LifeWidget() {
 
@@ -21,37 +23,28 @@ public class LifeWidget extends JPanel implements ActionListener, CellListener {
         _grid = new JCellGrid(_grid_width, _grid_height);
         _message = new JLabel();
 
-        /* Set layout and place CellBoard at center. */
         setLayout(new BorderLayout());
         add(_grid, BorderLayout.CENTER);
 
-        /* Create subpanel for message area and reset button. */
         JPanel sub_panel = new JPanel();
         sub_panel.setLayout(new BorderLayout());
 
-        /* Reset button. Add ourselves as the action listener. */
-        JButton reset_button = new JButton("Reset");
-        reset_button.addActionListener(this);
-        sub_panel.add(reset_button, BorderLayout.LINE_END);
-//		reset_message_panel.add(_message, BorderLayout.CENTER);
-
         JButton random_button = new JButton("Random");
         random_button.addActionListener(this);
-        sub_panel.add(random_button, BorderLayout.CENTER);
+        sub_panel.add(random_button, BorderLayout.LINE_START);
 
         JButton next_button = new JButton("Next");
         next_button.addActionListener(this);
-        sub_panel.add(next_button, BorderLayout.WEST);
+        sub_panel.add(next_button, BorderLayout.CENTER);
 
-        /* Add subpanel in south area of layout. */
+        JButton reset_button = new JButton("Reset");
+        reset_button.addActionListener(this);
+        sub_panel.add(reset_button, BorderLayout.LINE_END);
+
         add(sub_panel, BorderLayout.SOUTH);
 
-        /* Add ourselves as a cell listener for all of the
-         * cells on the cell board.
-         */
         _grid.addCellListener(this);
 
-        /* Reset game. */
         resetGrid();
     }
 
@@ -60,8 +53,6 @@ public class LifeWidget extends JPanel implements ActionListener, CellListener {
             s.setCellDead();
         }
 
-
-        /* Display game start message. */
         _message.setText("Welcome to Life.");
     }
 
@@ -76,7 +67,7 @@ public class LifeWidget extends JPanel implements ActionListener, CellListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Reset button
+
         if (e.getActionCommand().equals("Reset")) {
             resetGrid();
         }
@@ -87,15 +78,8 @@ public class LifeWidget extends JPanel implements ActionListener, CellListener {
         }
 
         if (e.getActionCommand().equals("Next")) {
-            int testColumn = 2;
-            int testRow = 1;
-            System.out.println("Before: " + numberOfNeighbors(_grid.getCellAt(testColumn, testRow)));
-            System.out.println(_grid.getCellAt(testColumn, testRow).isDead());
             setNextGrid();
-            System.out.println("After: " + numberOfNeighbors(_grid.getCellAt(testColumn, testRow)));
-            System.out.println(_grid.getCellAt(testColumn, testRow).isDead());
         }
-
 
     }
 
@@ -191,19 +175,10 @@ public class LifeWidget extends JPanel implements ActionListener, CellListener {
 
     @Override
     public void cellEntered(Cell s) {
-        /* Highlight cell if game still going on. */
-
-//		if (_game_won) {
-//			return;
-//		}
-//		s.highlightCell();
     }
 
     @Override
     public void cellExited(Cell s) {
-        /* Unhighlight cell. */
-
-//		s.unhighlightCell();
     }
 
 }

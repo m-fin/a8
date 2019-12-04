@@ -2,18 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Iterator;
 
-/*
- * JCellGrid is a user interface component that implements CellGrid.
- * 
- * Cell width and spot height are specified to the constructor. 
- * 
- * By default, the spots on the spot board are set up with a checker board pattern
- * for background colors and yellow highlighting.
- * 
- * Uses CellGridIterator to implement Iterable<Cell>
- * 
- */
-
 public class JCellGrid extends JPanel implements CellGrid {
 
 	private static final int DEFAULT_SCREEN_WIDTH = 500;
@@ -36,7 +24,7 @@ public class JCellGrid extends JPanel implements CellGrid {
 		
 		for (int y=0; y<height; y++) {
 			for (int x=0; x<width; x++) {
-				Color bg = ((x+y)%2 == 0) ? DEFAULT_BACKGROUND_LIGHT : DEFAULT_BACKGROUND_DARK;
+				Color bg = Color.BLACK;
 				_cells[x][y] = new JCell(bg, DEFAULT_CELL_COLOR, DEFAULT_HIGHLIGHT_COLOR, this, x, y);
 				((JCell)_cells[x][y]).setPreferredSize(preferred_size);
 				add(((JCell) _cells[x][y]));
@@ -66,8 +54,6 @@ public class JCellGrid extends JPanel implements CellGrid {
 		
 		return _cells[x][y];
 	}
-	
-	// Convenience methods for (de)registering spot listeners.
 	
 	@Override
 	public void addCellListener(CellListener spot_listener) {

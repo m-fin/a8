@@ -5,18 +5,6 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * JCell
- * 
- * A custom user interface component that implements a cell on a cell board
- * as an extension of JPanel.
- * 
- * A JCell acts as its own mouse listener and will translate mouse events into
- * notifications to registered CellListener objects when the cell is entered,
- * exited, or clicked using the appropriate methods (see CellListener).
- *
- */
-
 public class JCell extends JPanel implements MouseListener, Cell {
 
 	private Color _cell_color;
@@ -33,7 +21,6 @@ public class JCell extends JPanel implements MouseListener, Cell {
 	public JCell(Color background, Color cell_color, Color highlight,
                  CellGrid board, int x, int y) {
 
-		// Background color inherited from JPanel
 		setBackground(background);
 
 		_cell_color = cell_color;
@@ -49,8 +36,6 @@ public class JCell extends JPanel implements MouseListener, Cell {
 		addMouseListener(this);
 	}
 
-	// Getters for X, Y, and Grid properties
-
 	@Override
 	public int getCellX() {
 		return _x;
@@ -65,8 +50,6 @@ public class JCell extends JPanel implements MouseListener, Cell {
 	public CellGrid getGrid() {
 		return _board;
 	}
-
-	// Empty / Filled status methods
 
 	@Override
 	public boolean isDead() {
@@ -85,8 +68,6 @@ public class JCell extends JPanel implements MouseListener, Cell {
 		trigger_update();
 	}
 
-	// Highlight status methods
-
 	@Override
 	public boolean isHighlighted() {
 		return _is_highlighted;
@@ -103,9 +84,6 @@ public class JCell extends JPanel implements MouseListener, Cell {
 		_is_highlighted = false;
 		trigger_update();
 	}
-
-	// Getters / Setters for color properties Highlight and CellColor.
-	// getBackground and setBackground are inherited from JPanel.
 
 	@Override
 	public void setCellColor(Color c) {		
@@ -133,8 +111,6 @@ public class JCell extends JPanel implements MouseListener, Cell {
 		return _highlight_color;
 	}
 
-	// Cell listener (de)registration methods.
-
 	@Override
 	public void addCellListener(CellListener l) {
 		_cell_listeners.add(l);
@@ -145,13 +121,8 @@ public class JCell extends JPanel implements MouseListener, Cell {
 		_cell_listeners.remove(l);
 	}
 
-	// Overriding paintComponent from JPanel to paint ourselves
-	// the way we want.
-
 	@Override
 	public void paintComponent(Graphics g) {
-		// Super class paintComponent will take care of
-		// painting the background.
 		super.paintComponent(g);
 
 		Graphics2D g2d = (Graphics2D) g.create();
@@ -165,9 +136,6 @@ public class JCell extends JPanel implements MouseListener, Cell {
 			g2d.fillRect(0, 0, this.getWidth()-1, this.getHeight()-1);
 		}
 	}
-
-	// Mouse listener implementation below for translating
-	// mouse events into cell listener events.
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -204,12 +172,6 @@ public class JCell extends JPanel implements MouseListener, Cell {
 	
 	private void trigger_update() {		
 		repaint();
-
-		// Not sure why, but need to schedule a call
-		// to repaint for a little bit into the future
-		// as well as the one we just did above
-		// in order to make sure that we don't end up
-		// with visual artifacts due to race conditions.
 		
 		new Thread(new Runnable() {
 			public void run() {
